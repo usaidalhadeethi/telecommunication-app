@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistant Bonus List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bonusList.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-5 text-center">Bonus List</h1>
+        <div class="bonus-list">
+            <!-- Bonus items will be dynamically added here -->
+            <div class="bonus mb-3 rounded">
+                <div class="row justify-content-between">
+                    <p>[Month]</p>
+                    <p>[Amount]</p>
+                </div>
+                <div>
+                    <button class="btn btn-primary d-block objection-btn m-auto">Objection</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Pop-up form -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup rounded" id="objectionForm">
+        <h2>Objection</h2>
+        <form id="objectionSubmitForm">
+            <div class="form-group">
+                <label for="objectionExplanation">Objection Explanation :</label>
+                <textarea class="form-control" id="objectionExplanation" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="bonusesList.js"></script>
+</body>
+</html>

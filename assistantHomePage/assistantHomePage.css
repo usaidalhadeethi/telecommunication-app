@@ -1,0 +1,15 @@
+h2 {
+    font-weight: bold !important;
+}
+.listContainer {
+    margin-top: 8rem;
+}   
+.listContainer a {
+    background-color: grey;
+    font-size: 23px;
+    font-weight: 600;
+    transition: all .2s ease-in-out;
+}
+.listContainer a:hover {
+    background-color: #2c2ceb;
+}

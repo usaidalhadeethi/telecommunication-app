@@ -1,0 +1,8 @@
+.card {
+    background-color: #313131 !important;
+    box-shadow: 0px 10px 30px rgb(0, 0, 0,1);
+}
+
+.form-control::placeholder {
+    font-size: 18px !important;
+}

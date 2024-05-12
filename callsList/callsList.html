@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calls List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="callsList.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-5 text-center">Customer Call List</h1>
+        <div class="calls text-white">
+            <!-- Call items will be dynamically added here -->
+        </div>
+        <button class="btn btn-primary" id="newCallBtn">New Call</button>
+    </div>
+
+    <!-- Pop-up form -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup rounded" id="callForm">
+        <h2>New Call</h2>
+        <form id="newCallForm">
+            <div class="form-group">
+                <label for="customerFullName">Customer Full Name :</label>
+                <input type="text" class="form-control" id="customerFullName" required>
+            </div>
+            <div class="form-group">
+                <label for="callSubject">Call Subject :</label>
+                <select class="form-control" id="callSubject" required>
+                    <option value="Fault">Fault</option>
+                    <option value="Request">Request</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="callDate">Call Date :</label>
+                <input type="date" class="form-control" id="callDate" required>
+            </div>
+            <div class="form-group">
+                <label for="startTime">Start Time :</label>
+                <input type="time" class="form-control" id="startTime" required>
+            </div>
+            <div class="form-group">
+                <label for="endTime">End Time :</label>
+                <input type="time" class="form-control" id="endTime" required>
+            </div>
+            <div class="form-group">
+                <label for="callStatus">Call Status :</label>
+                <select class="form-control" id="callStatus" required>
+                    <option value="Completed">Completed</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Problem could not solved">Problem could not solved</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="callList.js"></script>
+</body>
+</html>
