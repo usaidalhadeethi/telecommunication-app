@@ -8,6 +8,30 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+
+<!-- As a heading -->
+<nav class="navbar bg-dark text-white">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1"><?php
+session_start();
+
+if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
+    // User is logged in, so display their email
+    echo $_SESSION["email"];
+} else {
+    // User is not logged in, so redirect to the login page
+    header("Location: ../login/login.php");
+    exit; // Make sure to stop the script after redirection
+}
+
+?></span>
+<span><a class="btn btn-primary" href="../login/logout.php">Logout</a>
+</span>
+  </div>
+</nav>
+
+    
     <div class="container mt-5">
         <h2 class="text-center">Welcome to assistant panel</h2>
         <div class="listContainer d-flex justify-content-between">

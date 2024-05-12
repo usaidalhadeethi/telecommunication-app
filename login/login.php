@@ -16,17 +16,17 @@
                         <div class="card-body p-5 text-center">
                 
                             <h1 class="mb-5 text-white">Log in</h1>
-                
+                            <form action="../php/login_proccess.php" method="post">
                             <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" placeholder="Enter Your Email" />
+                                <input name="email" type="email" id="typeEmailX-2" class="form-control form-control-lg" placeholder="Enter Your Email" />
                             </div>
                 
                             <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="password" id="typePasswordX-2" class="form-control form-control-lg" placeholder="Enter Your Password" />
+                                <input name="password" type="password" id="typePasswordX-2" class="form-control form-control-lg" placeholder="Enter Your Password" />
                             </div>
                 
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-    
+                          </form>
                         </div>
                     </div>
                 </div>
