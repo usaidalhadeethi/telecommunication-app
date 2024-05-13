@@ -25,7 +25,8 @@ if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
     exit; // Make sure to stop the script after redirection
 }
 
-?></span>
+?>
+</span>
 <span><a class="btn btn-primary" href="../login/logout.php">Logout</a>
 </span>
   </div>

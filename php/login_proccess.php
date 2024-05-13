@@ -72,8 +72,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["loggedin"] = true;
                             $_SESSION["leader_id"] = $row['leader_id'];
                             $_SESSION["email"] = $row['email'];
+                            $_SESSION["role"] = "leader"; // You may want to specify the role here
                             
-                            // Redirect user to leader.php page
+                            // Redirect user to teamLeaderScreen.php page
                             header("location: ../teamLeaderScreen/teamLeaderScreen.php");
                             exit;
                         } else {
