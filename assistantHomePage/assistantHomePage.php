@@ -13,8 +13,21 @@
 <!-- As a heading -->
 <nav class="navbar bg-dark text-white">
   <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1"><?php
+    <span class="navbar-brand mb-0 h1">
+        <?php
+
+
+// Start session
 session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION["assistant_id"]) || $_SESSION["role"]!="assistant"|| empty($_SESSION["assistant_id"]) ) {
+    // Redirect to the login page if not logged in
+    header("Location: ../login/login.php");
+    exit; // Stop further script execution
+}
+
+
 
 if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
     // User is logged in, so display their email
@@ -36,9 +49,9 @@ if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
     <div class="container mt-5">
         <h2 class="text-center">Welcome to assistant panel</h2>
         <div class="listContainer d-flex justify-content-between">
-            <a href="../callsList/callsList.html" class="rounded p-5 text-decoration-none text-white">Customer call list menu</a>
-            <a href="../bonusesList/bonusesList.html" class="rounded p-5 text-decoration-none text-white">Monthly bonus list menu</a>
-            <a href="../objectionsList/objectionsList.htm" class="rounded p-5 text-decoration-none text-white">List menu of objections</a>
+            <a href="../callsList/callsList.php" class="rounded p-5 text-decoration-none text-white">Customer call list menu</a>
+            <a href="../bonusesList/bonusesList.php" class="rounded p-5 text-decoration-none text-white">Monthly bonus list menu</a>
+            <a href="../objectionsList/objectionsList.php" class="rounded p-5 text-decoration-none text-white">List menu of objections</a>
         </div>
     </div>
 </body>

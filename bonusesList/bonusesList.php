@@ -8,6 +8,31 @@
     <link rel="stylesheet" href="bonusList.css">
 </head>
 <body>
+<?php
+
+
+// Start session
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION["assistant_id"]) || $_SESSION["role"]!="assistant"|| empty($_SESSION["assistant_id"]) ) {
+    // Redirect to the login page if not logged in
+    header("Location: ../login/login.php");
+    exit; // Stop further script execution
+}
+
+
+
+if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
+    // User is logged in, so display their email
+    echo $_SESSION["email"];
+} else {
+    // User is not logged in, so redirect to the login page
+    header("Location: ../login/login.php");
+    exit; // Make sure to stop the script after redirection
+}
+
+?>
     <div class="container">
         <h1 class="mt-4 mb-5 text-center">Bonus List</h1>
         <div class="bonus-list">
@@ -17,7 +42,7 @@
             require_once '../php/config.php';
 
             // Fetch bonus items from the database
-            $sql = "SELECT * FROM reward order by reward_id desc";
+            $sql = "SELECT * FROM reward order by reward_id asc";
             $result = mysqli_query($db, $sql);
 
             // Check if there are any bonus items
