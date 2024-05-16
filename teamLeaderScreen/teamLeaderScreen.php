@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="teamLeaderScreen.css">
 </head>
 <body>
+
+<nav class="navbar bg-dark text-white">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">
 <?php
 
 
@@ -33,6 +37,13 @@ if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
 }
 
 ?>
+
+</span>
+<span><a class="btn btn-primary" href="../login/logout.php">Logout</a>
+</span>
+  </div>
+</nav>
+
 
 <?php
     // Include the config file

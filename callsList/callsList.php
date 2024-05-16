@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-4 mb-5 text-center">Customer Call List</h1>
+        <h1 class="mt-4 mb-3 text-center">Customer Call List</h1>
         <div class="calls text-white">
         <?php
 

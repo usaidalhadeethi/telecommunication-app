@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="bonusList.css">
 </head>
 <body>
+
+<nav class="navbar bg-dark text-white">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">
 <?php
 
 
@@ -33,6 +37,13 @@ if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
 }
 
 ?>
+
+</span>
+<span><a class="btn btn-primary" href="../login/logout.php">Logout</a>
+</span>
+  </div>
+</nav>
+
     <div class="container">
         <h1 class="mt-4 mb-5 text-center">Bonus List</h1>
         <div class="bonus-list">

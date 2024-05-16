@@ -9,6 +9,9 @@
 </head>
 <body>
 
+<nav class="navbar bg-dark text-white">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">
 <?php
 
 
@@ -16,7 +19,7 @@
 session_start();
 
 // Check if user is logged in
-if (!isset($_SESSION["assistant_id"]) || empty($_SESSION["assistant_id"]) && $_SESSION["role"=="assistant"]) {
+if (!isset($_SESSION["assistant_id"]) || $_SESSION["role"]!="assistant"|| empty($_SESSION["assistant_id"]) ) {
     // Redirect to the login page if not logged in
     header("Location: ../login/login.php");
     exit; // Stop further script execution
@@ -34,6 +37,13 @@ if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
 }
 
 ?>
+
+</span>
+<span><a class="btn btn-primary" href="../login/logout.php">Logout</a>
+</span>
+  </div>
+</nav>
+
 <?php
 // Start session
 
