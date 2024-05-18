@@ -29,6 +29,14 @@ Assistants handle customer calls at the call center and receive monthly bonuses 
     ```
     Base Bonus + (Number of calls ≤ 5 minutes) × 2
     ```
+    
+## Technologies Used
+
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: PHP
+- **Database**: MySQL
+- **Frameworks/Libraries**: Bootstrap, jQuery
+- **Version Control**: Git
 
 This system ensures transparent tracking of bonuses and provides a structured process for handling objections.
 
