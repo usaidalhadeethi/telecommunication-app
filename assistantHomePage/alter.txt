@@ -61,12 +61,8 @@ if (isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
         // Get the result
         $result = mysqli_stmt_get_result($stmt);
 
-        // Initialize a variable to track if there are any bonus items
-        $hasBonusItems = false;
-
         // Check if there are any bonus items
         if ($result && mysqli_num_rows($result) > 0) {
-            $hasBonusItems = true;
             // Loop through each bonus item
             while ($row = mysqli_fetch_assoc($result)) {
                 // Display the bonus item
@@ -93,10 +89,7 @@ if (isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
     </div>
 </div>
 
-<!-- Conditionally render the objection button -->
-<?php if ($hasBonusItems): ?>
-    <div><button class="btn btn-primary d-block objection-btn m-auto">Objection</button></div>
-<?php endif; ?>
+<div><button class="btn btn-primary d-block objection-btn m-auto">Objection</button></div>
 
 <!-- Pop-up form -->
 <div class="overlay" id="overlay"></div>

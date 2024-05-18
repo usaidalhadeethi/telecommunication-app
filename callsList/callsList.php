@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="callsList.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-4 mb-3 text-center">Customer Call List</h1>
-        <div class="calls text-white">
+<!-- As a heading -->
+<nav class="navbar bg-dark text-white">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">
         <?php
 
 
@@ -36,14 +37,34 @@ if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
 }
 
 ?>
+</span>
+<span><a class="btn btn-primary" href="../login/logout.php">Logout</a>
+</span>
+  </div>
+</nav>
+    <div class="container">
+        <h1 class="mt-4 mb-3 text-center">Customer Call List</h1>
+        <button class="btn btn-primary mb-2" id="newCallBtn">New Call</button>
+        <div class="calls text-white">
+        
             <?php
             include '../php/config.php';
             // Execute your database query here to fetch the call details
             // Assuming $rows is an array containing all fetched rows
 
             // Example database query
-            $query = "SELECT customer_name, call_subject, call_date, call_startTime, call_finishTime, call_status FROM tbl_call order by call_id  desc";
-            $result = mysqli_query($db, $query);
+            // Example database query
+$query = "SELECT c.customer_fullName, c.customer_id, tc.call_subject, tc.call_date, tc.call_startTime, tc.call_finishTime, tc.call_status 
+FROM tbl_call tc
+LEFT JOIN customer c ON tc.customer_id = c.customer_id
+JOIN assistant a ON tc.assistant_id = a.assistant_id
+WHERE a.assistant_id = ?
+ORDER BY tc.call_id DESC";
+
+$stmt = mysqli_prepare($db, $query);
+mysqli_stmt_bind_param($stmt, "i", $_SESSION["assistant_id"]);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
             // Check if query was successful
             if ($result && mysqli_num_rows($result) > 0) {
@@ -53,7 +74,7 @@ if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
             ?>
                 <div class="call rounded">
                     <div class="row justify-content-between">
-                        <p>Full Name: <?php echo $row['customer_name']; ?></p>
+                        <p>Full Name: <?php echo $row['customer_fullName']; ?></p>
                         <p>Call Subject: <?php echo $row['call_subject']; ?></p>
                         <p>Date: <?php echo $row['call_date']; ?></p>
                     </div>
@@ -66,11 +87,10 @@ if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
             <?php
                 }
             } else {
-                echo "No calls found.";
+                echo "<p class='text-dark'>No calls found.</p>";            
             }
             ?>
         </div>
-        <button class="btn btn-primary" id="newCallBtn">New Call</button>
     </div>
 
     <!-- Pop-up form -->

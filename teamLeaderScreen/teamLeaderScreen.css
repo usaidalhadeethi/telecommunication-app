@@ -6,7 +6,6 @@ h1 {
     display: flex;
     justify-content: space-between;
     color: white;
-    margin-bottom: 20px;
     padding: 20px;
     background-color: #313131;
     cursor: pointer; /* Add cursor pointer for clickable items */
@@ -82,4 +81,8 @@ h1 {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.btn {
+    margin: 0 5px 30px 0 !important;
 }
