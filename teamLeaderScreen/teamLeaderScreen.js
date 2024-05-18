@@ -1,25 +1,3 @@
-// Function to handle "Answer" button click
-$('.answer-btn').click(function(event) {
-    event.stopPropagation();
-    $('#answerForm').show();
-    $('#overlay').show();
-});
-
-// Function to hide the pop-up form and overlay when overlay is clicked
-$('#overlay').click(function() {
-    $('#answerForm').hide();
-    $('#overlay').hide();
-});
-
-// Function to handle form submission
-$('#answerObjectionForm').submit(function(e) {
-    e.preventDefault();
-    var response = $('#response').val();
-    $('#response').val('');
-    $('#answerForm').hide();
-    $('#overlay').hide();
-});
-
 // Function to toggle modal visibility when objection item is clicked
 $('.objection-item').click(function() {
     // Get the objection details
@@ -41,4 +19,11 @@ $('.objection-item').click(function() {
 // Function to close the modal when the close button is clicked
 $('.close').click(function() {
     $('#objectionDetailsModal').removeClass('show-modal');
+});
+
+// Function to close the modal when the overlay (outside the modal content) is clicked
+$('#objectionDetailsModal').click(function(event) {
+    if ($(event.target).is('#objectionDetailsModal')) {
+        $('#objectionDetailsModal').removeClass('show-modal');
+    }
 });

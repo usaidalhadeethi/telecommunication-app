@@ -10,8 +10,8 @@
 <body>
 
 <nav class="navbar bg-dark text-white">
-  <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">
 <?php
 // Start session
 session_start();
