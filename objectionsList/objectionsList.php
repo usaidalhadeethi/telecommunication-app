@@ -33,9 +33,9 @@ if (isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
 }
 
 ?>
-</span>
-<span><a class="btn btn-primary" href="../login/logout.php">Logout</a></span>
-  </div>
+    </span>
+    <span><a class="btn btn-primary" href="../login/logout.php">Logout</a></span>
+    </div>
 </nav>
 
 <div class="container">

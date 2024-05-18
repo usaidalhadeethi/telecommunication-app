@@ -27,3 +27,4 @@ $('#objectionDetailsModal').click(function(event) {
         $('#objectionDetailsModal').removeClass('show-modal');
     }
 });
+
