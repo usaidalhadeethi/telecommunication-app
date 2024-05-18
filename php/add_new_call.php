@@ -25,27 +25,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $customer_id = $_SESSION["assistant_id"];
+    $assistant_id = $_SESSION["assistant_id"];
 
-    // Prepare an insert statement
-    $sql = "INSERT INTO tbl_call (customer_name, customer_id, assistant_id, call_date, call_subject, call_startTime, call_finishTime, call_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    // Start transaction
+    mysqli_begin_transaction($db);
 
-    if ($stmt = mysqli_prepare($db, $sql)) {
-        // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "siisssss", $customerFullName, $customerid, $customer_id, $callDate, $callSubject, $startTime, $endTime, $callStatus);
-        
-        // Attempt to execute the prepared statement
-        if (mysqli_stmt_execute($stmt)) {
-            // Redirect to success page or do something else upon success
-            header("location: ../callsList/callsList.php");
-            exit;
-        } else {
-            echo "Oops! Something went wrong. Please try again later.";
-        }
+    try {
+        // Insert into customer table
+        $sql_insert_customer = "INSERT INTO customer (customer_id, customer_fullName) VALUES (?, ?)";
+        $stmt_insert_customer = mysqli_prepare($db, $sql_insert_customer);
+        mysqli_stmt_bind_param($stmt_insert_customer, "is", $customerid, $customerFullName);
+        mysqli_stmt_execute($stmt_insert_customer);
+        mysqli_stmt_close($stmt_insert_customer);
 
-        // Close statement
-        mysqli_stmt_close($stmt);
-    } else {
+        // Insert into tbl_call table
+        $sql_insert_call = "INSERT INTO tbl_call (customer_id, assistant_id, call_date, call_subject, call_startTime, call_finishTime, call_status) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt_insert_call = mysqli_prepare($db, $sql_insert_call);
+        mysqli_stmt_bind_param($stmt_insert_call, "iisssss", $customerid, $assistant_id, $callDate, $callSubject, $startTime, $endTime, $callStatus);
+        mysqli_stmt_execute($stmt_insert_call);
+        mysqli_stmt_close($stmt_insert_call);
+
+        // Commit transaction
+        mysqli_commit($db);
+
+        // Redirect to success page
+        header("location: ../callsList/callsList.php");
+        exit;
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        mysqli_rollback($db);
         echo "Oops! Something went wrong. Please try again later.";
     }
 
