@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2024 at 05:08 PM
+-- Generation Time: May 18, 2024 at 06:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,8 +48,7 @@ CREATE DEFINER=`` PROCEDURE `GetRespondedObjections` ()   BEGIN
         o.objection_reason,
         o.objection_month,
         o.objection_status,
-        r.response_content,
-        r.response_date
+        r.response_content
     FROM 
         objection o
     JOIN 
@@ -136,7 +135,9 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`customer_id`, `customer_fullName`) VALUES
 (1, 'Customer1 A1'),
-(2, 'Customer2 A1');
+(2, 'Customer2 A1'),
+(752, 'muhab endish'),
+(9069247, 'muhab endish');
 
 -- --------------------------------------------------------
 
@@ -271,7 +272,9 @@ CREATE TABLE `tbl_call` (
 
 INSERT INTO `tbl_call` (`call_id`, `assistant_id`, `customer_id`, `call_status`, `call_startTime`, `call_finishTime`, `call_subject`, `call_date`) VALUES
 (183, 1, 1, 'Completed', '18:00:00', '19:02:00', 'Fault', '2024-05-18'),
-(184, 1, 2, 'Completed', '18:01:00', '18:03:00', 'Fault', '2024-06-18');
+(184, 1, 2, 'Completed', '18:01:00', '18:03:00', 'Fault', '2024-06-18'),
+(185, 1, 752, 'Completed', '19:05:00', '19:05:00', 'Info', '2024-05-02'),
+(186, 1, 9069247, 'Completed', '19:12:00', '19:13:00', 'Info', '2024-05-18');
 
 --
 -- Triggers `tbl_call`
@@ -499,7 +502,7 @@ ALTER TABLE `assistant`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5686459;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9069248;
 
 --
 -- AUTO_INCREMENT for table `manager`
@@ -535,7 +538,7 @@ ALTER TABLE `salary`
 -- AUTO_INCREMENT for table `tbl_call`
 --
 ALTER TABLE `tbl_call`
-  MODIFY `call_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
+  MODIFY `call_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT for table `team`
