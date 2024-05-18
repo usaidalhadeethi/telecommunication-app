@@ -1,4 +1,4 @@
-#Personnel Bonus Tracking and Objection System
+Personnel Bonus Tracking and Objection System
 
 This project is developed for a telecommunications company to manage the monthly bonuses of customer representatives (assistants). Each assistant reports to a team leader, and the team leaders report to group managers.
 Overview
@@ -83,3 +83,15 @@ The monthly base bonus is 5000 TL.
     Assistants who handle less than 100 customer calls per day do not earn a bonus for that day (these calls should not be included in the bonus calculation). The bonus explanation for such days should be "No bonus entitlement".
 
     For assistants handling 100-200 (exclusive) calls per day:
+
+    javascript
+
+Monthly Base Bonus + (Number of calls with a duration of 5 minutes or less) X 1.25
+
+For assistants handling 200 or more calls per day:
+
+javascript
+
+    Monthly Base Bonus + (Number of calls with a duration of 5 minutes or less) X 2
+
+The "Number of calls with a duration of 5 minutes or less" should be the total for all days in the relevant month.
