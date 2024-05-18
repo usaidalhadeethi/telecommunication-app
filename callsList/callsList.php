@@ -111,6 +111,7 @@ $result = mysqli_stmt_get_result($stmt);
                 <select name="callSubject" class="form-control" id="callSubject" required>
                     <option value="Fault" >Fault</option>
                     <option value="Request" >Request</option>
+                    <option value="Info" >Info</option>
                 </select>
             </div>
             <div class="form-group">
