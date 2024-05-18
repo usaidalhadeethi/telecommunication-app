@@ -10,8 +10,8 @@
 <body>
 
 <nav class="navbar bg-dark text-white">
-  <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">
 <?php
 // Start session
 session_start();
@@ -72,13 +72,13 @@ if (isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
                 // Display the bonus item
                 echo '<div class="bonus mb-3 rounded">';
                 echo '<div class="row justify-content-between">';
-                echo '<p>' . $row['reward_month'] . '</p>';
-                echo '<p>' . $row['reward_amount'] . '</p>';
-                echo '</div>';
+                echo '<p>Month : ' . $row['reward_month'] . '</p>';
+                echo '<p>' . $row['reward_amount'] . ' TL</p>';
+                echo '</div>'; // Close row div
+                echo '</div>'; // Close bonus div
                 // Store the month of the last reward
                 $month = $row['reward_month'];
             }
-            echo '</div>';
         } else {
             // If no bonus items found, display a message
             echo '<p>No bonus items found.</p>';

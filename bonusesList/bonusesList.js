@@ -1,31 +1,3 @@
-// Mock data for bonus list
-// var bonusList = [
-//     { month: 'January', amount: 100 },
-//     { month: 'February', amount: 150 },
-//     { month: 'March', amount: 200 },
-//     { month: 'April', amount: 180 },
-//     { month: 'May', amount: 220 }
-// ];
-
-// Function to display bonus list
-// function displayBonusList() {
-//     $('.bonus-list').empty(); // Clear existing bonus list items
-//     bonusList.forEach(function(bonus, index) {
-//         var bonusItem = '<div class="bonus mb-3 rounded">' +
-//                             '<div class="row justify-content-between">' +
-//                                 '<p>' + bonus.month + '</p>' +
-//                                 '<p>' + bonus.amount + '</p>' +
-//                             '</div>'; // Close row here
-//         if (index === bonusList.length - 1) {
-//             bonusItem += '<div>'+
-//                         '<button class="btn btn-primary d-block objection-btn m-auto rounded-0">Objection</button>' +
-//                         '</div>';
-//         }
-//         bonusItem += '</div>'; // Close bonus div here
-//         $('.bonus-list').append(bonusItem);
-//     });
-// }
-
 // Function to hide the pop-up form and overlay when overlay is clicked
 $('#overlay').click(function() {
     $('#objectionForm').hide();
