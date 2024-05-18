@@ -14,7 +14,7 @@ Assistants handle customer calls at the call center and receive monthly bonuses 
 3. **File Objections**: Assistants can submit objections to their bonuses, which are sent to their team leaders for review.
 
 ### For Team Leaders
-1. **Review Objections**: Team leaders can view and respond to objections from their assistants, either approving or rejecting them. The status of objections is updated and an email is sent to the group manager.
+**Review Objections**: Team leaders can view and respond to objections from their assistants, either approving or rejecting them. The status of objections is updated and an email is sent to the group manager.
 
 ## Bonus Calculation
 
