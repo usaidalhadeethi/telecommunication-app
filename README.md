@@ -31,3 +31,8 @@ Assistants handle customer calls at the call center and receive monthly bonuses 
     ```
 
 This system ensures transparent tracking of bonuses and provides a structured process for handling objections.
+
+![Screenshot 2024-05-18 213732](https://github.com/usaidalhadeethi/telecommunication-app/assets/101979002/34135460-080f-464a-9cbe-9be6ccae9b5c)
+![Screenshot 2024-05-18 213751](https://github.com/usaidalhadeethi/telecommunication-app/assets/101979002/40efea0a-b377-4258-8405-ee40f1c72e20)
+![Screenshot 2024-05-18 213913](https://github.com/usaidalhadeethi/telecommunication-app/assets/101979002/632a3a0e-d00e-4db3-bb9d-7946b7df6d15)
+![Screenshot 2024-05-18 215005](https://github.com/usaidalhadeethi/telecommunication-app/assets/101979002/25be5776-ecfb-4cb6-934e-05fae08717e7)
