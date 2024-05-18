@@ -2,6 +2,7 @@
 
 This project is developed for a telecommunications company to manage the monthly bonuses of customer representatives (assistants). Each assistant reports to a team leader, and the team leaders report to group managers.
 
+
 ## Overview
 
 Assistants handle customer calls at the call center and receive monthly bonuses based on their performance. The system tracks these bonuses and allows assistants to log their calls and file objections if they disagree with their bonuses.
@@ -39,6 +40,7 @@ Assistants handle customer calls at the call center and receive monthly bonuses 
 - **Version Control**: Git
 
 This system ensures transparent tracking of bonuses and provides a structured process for handling objections.
+
 
 
 ![Screenshot 2024-05-18 213732](https://github.com/usaidalhadeethi/telecommunication-app/assets/101979002/34135460-080f-464a-9cbe-9be6ccae9b5c)
