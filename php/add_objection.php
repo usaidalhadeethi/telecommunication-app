@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Processing form data when form is submitted
     $status = mysqli_real_escape_string($db, $_POST['status']);
     $objection = mysqli_real_escape_string($db, $_POST['objection']);
-  
+
     // Ensure $_SESSION["assistant_id"] is set
     if (!isset($_SESSION["assistant_id"])) {
         echo "Session error: assistant_id not set.";
@@ -29,20 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $month = $row_reward['reward_month'];
 
      // Fetch team_ID from the assistant table
-     $sql_fetch_team_id = "SELECT team_ID FROM assistant WHERE assistant_id = ?";
-     $stmt_fetch_team_id = mysqli_prepare($db, $sql_fetch_team_id);
-     mysqli_stmt_bind_param($stmt_fetch_team_id, "i", $customer_id);
-     mysqli_stmt_execute($stmt_fetch_team_id);
-     mysqli_stmt_bind_result($stmt_fetch_team_id, $team_id);
-     mysqli_stmt_fetch($stmt_fetch_team_id);
-     mysqli_stmt_close($stmt_fetch_team_id);
- 
+    $sql_fetch_team_id = "SELECT team_ID FROM assistant WHERE assistant_id = ?";
+    $stmt_fetch_team_id = mysqli_prepare($db, $sql_fetch_team_id);
+    mysqli_stmt_bind_param($stmt_fetch_team_id, "i", $customer_id);
+    mysqli_stmt_execute($stmt_fetch_team_id);
+    mysqli_stmt_bind_result($stmt_fetch_team_id, $team_id);
+    mysqli_stmt_fetch($stmt_fetch_team_id);
+    mysqli_stmt_close($stmt_fetch_team_id);
+
      // Prepare an insert statement
-     $sql = "INSERT INTO objection (objection_status, objection_reason, objection_month, assistant_id, team_ID) VALUES (?, ?, ?, ?, ?)";
- 
-     if ($stmt = mysqli_prepare($db, $sql)) {
+    $sql = "INSERT INTO objection (objection_status, objection_reason, objection_month, assistant_id, team_ID) VALUES (?, ?, ?, ?, ?)";
+
+    if ($stmt = mysqli_prepare($db, $sql)) {
          // Bind variables to the prepared statement as parameters
-         mysqli_stmt_bind_param($stmt, "sssis", $status, $objection, $month, $customer_id, $team_id);
+        mysqli_stmt_bind_param($stmt, "sssis", $status, $objection, $month, $customer_id, $team_id);
         
         // Attempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
