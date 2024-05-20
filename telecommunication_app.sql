@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2024 at 06:56 PM
+-- Generation Time: May 20, 2024 at 12:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,65 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `telecommunication_app`
 --
-
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`` PROCEDURE `GetObjectionsByStatus` (IN `p_status` VARCHAR(50))   BEGIN
-    SELECT 
-        o.objection_id,
-        o.objection_reason,
-        o.objection_month,
-        o.objection_status,
-        a.assistant_id,
-        a.assistant_fullName
-    FROM 
-        objection o
-    JOIN 
-        assistant a ON o.assistant_id = a.assistant_id
-    WHERE 
-        o.objection_status = p_status;
-END$$
-
-CREATE DEFINER=`` PROCEDURE `GetRespondedObjections` ()   BEGIN
-    SELECT 
-        a.assistant_fullName,
-        o.objection_id,
-        o.objection_reason,
-        o.objection_month,
-        o.objection_status,
-        r.response_content
-    FROM 
-        objection o
-    JOIN 
-        assistant a ON o.assistant_id = a.assistant_id
-    JOIN 
-        response r ON o.objection_id = r.objection_id
-    WHERE 
-        o.objection_status = 'responded';
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTeamInfo` ()   BEGIN
-    SELECT 
-        t.team_ID,
-        t.team_name,
-        tl.leader_id,
-        CONCAT(tl.leader_firstName, ' ', tl.leader_lastName) AS leader_fullName,
-        a.assistant_id,
-        a.assistant_fullName
-    FROM 
-        team t
-        JOIN team_leader tl ON t.team_ID = tl.team_ID
-        JOIN assistant a ON t.team_ID = a.team_ID;
-END$$
-
-CREATE DEFINER=`` PROCEDURE `InsertAssistant` (IN `p_fullName` VARCHAR(100), IN `p_email` VARCHAR(100), IN `p_password` VARCHAR(255), IN `p_team_id` INT)   BEGIN
-    INSERT INTO assistant (assistant_fullName, assistant_email, assistant_password, team_ID)
-    VALUES (p_fullName, p_email, p_password, p_team_id);
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -134,10 +75,15 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `customer_fullName`) VALUES
-(1, 'Customer1 A1'),
-(2, 'Customer2 A1'),
-(752, 'muhab endish'),
-(9069247, 'muhab endish');
+(1, 'customer1 a1'),
+(2, 'customer2 a1'),
+(3, 'customer3 a1'),
+(4, 'customer4 a2'),
+(5, 'customer5 a2'),
+(10, 'c b2'),
+(11, 'c2 b2'),
+(13, 'c a1 new'),
+(14, 'new2');
 
 -- --------------------------------------------------------
 
@@ -171,8 +117,11 @@ CREATE TABLE `objection` (
 --
 
 INSERT INTO `objection` (`objection_id`, `assistant_id`, `team_ID`, `objection_month`, `objection_reason`, `objection_status`) VALUES
-(56, 1, 1, 5, 'a1 m5', 'accept'),
-(57, 1, 1, 6, 'a1 m6', 'pending');
+(59, 1, 1, 5, 'a1 m5', 'reject'),
+(60, 2, 1, 6, 'as2 m6', 'accept'),
+(61, 2, 1, 6, 'as2 m6', 'accept'),
+(62, 4, 2, 7, 'b2 m7', 'reject'),
+(63, 1, 1, 7, 'a1 m7 new', 'reject');
 
 -- --------------------------------------------------------
 
@@ -212,7 +161,11 @@ CREATE TABLE `response` (
 --
 
 INSERT INTO `response` (`response_id`, `objection_id`, `assistant_id`, `leader_id`, `response_content`, `response_action`) VALUES
-(37, 56, 1, 1, 'a1 m5 ac', 'accept');
+(38, 59, 1, 1, 'as1 m5 reject', 'reject'),
+(39, 60, 2, 1, 'as1 m6 accepted', 'accept'),
+(40, 61, 2, 1, 'as2 m6 ac', 'accept'),
+(41, 62, 4, 2, 'be m7 r', 'reject'),
+(42, 63, 1, 1, 'm7 r', 'reject');
 
 -- --------------------------------------------------------
 
@@ -234,8 +187,13 @@ CREATE TABLE `reward` (
 --
 
 INSERT INTO `reward` (`reward_id`, `assistant_id`, `reward_month`, `reward_year`, `reward_amount`, `reward_comment`) VALUES
-(86, 1, 5, 2024, 5000, 'Monthly incentive 5 year 2024'),
-(87, 1, 6, 2024, 5000, 'Monthly incentive 6 year 2024');
+(92, 1, 5, 2024, 5000, 'Monthly incentive 5 year 2024'),
+(93, 1, 6, 2024, 5000, 'Monthly incentive 6 year 2024'),
+(94, 2, 5, 2024, 5000, 'Monthly incentive 5 year 2024'),
+(95, 2, 6, 2024, 5000, 'Monthly incentive 6 year 2024'),
+(96, 4, 5, 2024, 5000, 'Monthly incentive 5 year 2024'),
+(97, 4, 7, 2024, 5000, 'Monthly incentive 7 year 2024'),
+(98, 1, 7, 2024, 5000, 'Monthly incentive 7 year 2024');
 
 -- --------------------------------------------------------
 
@@ -271,10 +229,15 @@ CREATE TABLE `tbl_call` (
 --
 
 INSERT INTO `tbl_call` (`call_id`, `assistant_id`, `customer_id`, `call_status`, `call_startTime`, `call_finishTime`, `call_subject`, `call_date`) VALUES
-(183, 1, 1, 'Completed', '18:00:00', '19:02:00', 'Fault', '2024-05-18'),
-(184, 1, 2, 'Completed', '18:01:00', '18:03:00', 'Fault', '2024-06-18'),
-(185, 1, 752, 'Completed', '19:05:00', '19:05:00', 'Info', '2024-05-02'),
-(186, 1, 9069247, 'Completed', '19:12:00', '19:13:00', 'Info', '2024-05-18');
+(193, 1, 1, 'Completed', '16:13:00', '16:15:00', 'Fault', '2024-05-19'),
+(194, 1, 2, 'Completed', '14:02:00', '14:03:00', 'Fault', '2024-05-21'),
+(195, 1, 3, 'Completed', '02:02:00', '14:04:00', 'Fault', '2024-06-12'),
+(196, 2, 4, 'Problem could not solved', '00:30:00', '00:32:00', 'Fault', '2024-05-15'),
+(197, 2, 5, 'Completed', '00:31:00', '00:33:00', 'Fault', '2024-06-12'),
+(198, 4, 10, 'Completed', '00:35:00', '00:37:00', 'Fault', '2024-05-22'),
+(199, 4, 11, 'Completed', '00:37:00', '00:40:00', 'Fault', '2024-07-17'),
+(200, 1, 13, 'Completed', '01:00:00', '01:01:00', 'Fault', '2024-07-24'),
+(201, 1, 14, 'Problem could not solved', '01:06:00', '01:06:00', 'Fault', '2024-05-21');
 
 --
 -- Triggers `tbl_call`
@@ -404,7 +367,7 @@ INSERT INTO `team_leader` (`leader_id`, `team_ID`, `leader_firstName`, `leader_l
 --
 DROP TABLE IF EXISTS `assistant_rewards_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `assistant_rewards_view`  AS SELECT `a`.`assistant_id` AS `assistant_id`, `a`.`assistant_fullName` AS `assistant_fullName`, `r`.`reward_id` AS `reward_id`, `r`.`reward_month` AS `reward_month`, `r`.`reward_amount` AS `reward_amount` FROM (`assistant` `a` join `reward` `r` on(`a`.`assistant_id` = `r`.`assistant_id`)) ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `assistant_rewards_view`  AS SELECT `a`.`assistant_id` AS `assistant_id`, `a`.`assistant_fullName` AS `assistant_fullName`, `r`.`reward_id` AS `reward_id`, `r`.`reward_month` AS `reward_month`, `r`.`reward_amount` AS `reward_amount` FROM (`assistant` `a` join `reward` `r` on(`a`.`assistant_id` = `r`.`assistant_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -413,7 +376,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `assistant_rewar
 --
 DROP TABLE IF EXISTS `objections_list_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `objections_list_view`  AS SELECT `a`.`assistant_id` AS `assistant_id`, `a`.`assistant_fullName` AS `assistant_fullName`, `o`.`objection_id` AS `objection_id`, `o`.`objection_reason` AS `objection_reason`, `o`.`objection_month` AS `objection_month`, `o`.`objection_status` AS `objection_status`, `tl`.`team_ID` AS `team_ID`, `tl`.`leader_id` AS `leader_id`, concat(`tl`.`leader_firstName`,' ',`tl`.`leader_lastName`) AS `leader_fullName` FROM ((`assistant` `a` join `objection` `o` on(`a`.`assistant_id` = `o`.`assistant_id`)) join `team_leader` `tl` on(`a`.`team_ID` = `tl`.`team_ID`)) ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `objections_list_view`  AS SELECT `a`.`assistant_id` AS `assistant_id`, `a`.`assistant_fullName` AS `assistant_fullName`, `o`.`objection_id` AS `objection_id`, `o`.`objection_reason` AS `objection_reason`, `o`.`objection_month` AS `objection_month`, `o`.`objection_status` AS `objection_status`, `tl`.`team_ID` AS `team_ID`, `tl`.`leader_id` AS `leader_id`, concat(`tl`.`leader_firstName`,' ',`tl`.`leader_lastName`) AS `leader_fullName` FROM ((`assistant` `a` join `objection` `o` on(`a`.`assistant_id` = `o`.`assistant_id`)) join `team_leader` `tl` on(`a`.`team_ID` = `tl`.`team_ID`)) ;
 
 --
 -- Indexes for dumped tables
@@ -514,19 +477,19 @@ ALTER TABLE `manager`
 -- AUTO_INCREMENT for table `objection`
 --
 ALTER TABLE `objection`
-  MODIFY `objection_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `objection_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `response`
 --
 ALTER TABLE `response`
-  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `reward`
 --
 ALTER TABLE `reward`
-  MODIFY `reward_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `reward_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `salary`
@@ -538,7 +501,7 @@ ALTER TABLE `salary`
 -- AUTO_INCREMENT for table `tbl_call`
 --
 ALTER TABLE `tbl_call`
-  MODIFY `call_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+  MODIFY `call_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
 
 --
 -- AUTO_INCREMENT for table `team`
