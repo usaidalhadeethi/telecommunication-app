@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2024 at 12:08 PM
+-- Generation Time: May 27, 2024 at 12:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,66 @@ SET time_zone = "+00:00";
 --
 -- Database: `telecommunication_app`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddAssistant` (IN `p_team_ID` INT, IN `p_assistant_fullName` VARCHAR(100), IN `p_email` VARCHAR(100), IN `p_password` VARCHAR(70))   BEGIN
+    INSERT INTO assistant (team_ID, assistant_fullName, email, password)
+    VALUES (p_team_ID, p_assistant_fullName, p_email, p_password);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAcceptedObjections` ()   BEGIN
+    SELECT 
+        a.assistant_fullName,
+        o.objection_id,
+        o.objection_reason,
+        o.objection_month,
+        o.objection_status,
+        r.response_content,
+        r.response_date
+    FROM 
+        objection o
+    JOIN 
+        assistant a ON o.assistant_id = a.assistant_id
+    JOIN 
+        response r ON o.objection_id = r.objection_id
+    WHERE 
+        o.objection_status = 'accepted';
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetObjectionsByStatus` (IN `p_status` VARCHAR(50))   BEGIN
+    SELECT 
+        o.objection_id,
+        o.objection_reason,
+        o.objection_month,
+        o.objection_status,
+        a.assistant_id,
+        a.assistant_fullName
+    FROM 
+        objection o
+    JOIN 
+        assistant a ON o.assistant_id = a.assistant_id
+    WHERE 
+        o.objection_status = p_status;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTeamInfo` ()   BEGIN
+    SELECT 
+        t.team_ID,
+        t.team_name,
+        tl.leader_id,
+        CONCAT(tl.leader_firstName, ' ', tl.leader_lastName) AS leader_fullName,
+        a.assistant_id,
+        a.assistant_fullName
+    FROM 
+        team t
+        JOIN team_leader tl ON t.team_ID = tl.team_ID
+        JOIN assistant a ON t.team_ID = a.team_ID;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -83,7 +143,8 @@ INSERT INTO `customer` (`customer_id`, `customer_fullName`) VALUES
 (10, 'c b2'),
 (11, 'c2 b2'),
 (13, 'c a1 new'),
-(14, 'new2');
+(14, 'new2'),
+(123, 'yosuf');
 
 -- --------------------------------------------------------
 
@@ -121,7 +182,8 @@ INSERT INTO `objection` (`objection_id`, `assistant_id`, `team_ID`, `objection_m
 (60, 2, 1, 6, 'as2 m6', 'accept'),
 (61, 2, 1, 6, 'as2 m6', 'accept'),
 (62, 4, 2, 7, 'b2 m7', 'reject'),
-(63, 1, 1, 7, 'a1 m7 new', 'reject');
+(63, 1, 1, 7, 'a1 m7 new', 'reject'),
+(64, 1, 1, 7, 'a1', 'accept');
 
 -- --------------------------------------------------------
 
@@ -165,7 +227,9 @@ INSERT INTO `response` (`response_id`, `objection_id`, `assistant_id`, `leader_i
 (39, 60, 2, 1, 'as1 m6 accepted', 'accept'),
 (40, 61, 2, 1, 'as2 m6 ac', 'accept'),
 (41, 62, 4, 2, 'be m7 r', 'reject'),
-(42, 63, 1, 1, 'm7 r', 'reject');
+(42, 63, 1, 1, 'm7 r', 'reject'),
+(43, 64, 1, 1, 'jnwef', 'accept'),
+(44, 64, 1, 1, 'jnwef', 'accept');
 
 -- --------------------------------------------------------
 
@@ -237,7 +301,8 @@ INSERT INTO `tbl_call` (`call_id`, `assistant_id`, `customer_id`, `call_status`,
 (198, 4, 10, 'Completed', '00:35:00', '00:37:00', 'Fault', '2024-05-22'),
 (199, 4, 11, 'Completed', '00:37:00', '00:40:00', 'Fault', '2024-07-17'),
 (200, 1, 13, 'Completed', '01:00:00', '01:01:00', 'Fault', '2024-07-24'),
-(201, 1, 14, 'Problem could not solved', '01:06:00', '01:06:00', 'Fault', '2024-05-21');
+(201, 1, 14, 'Problem could not solved', '01:06:00', '01:06:00', 'Fault', '2024-05-21'),
+(202, 1, 123, 'Completed', '21:03:00', '12:03:00', 'Fault', '2024-05-21');
 
 --
 -- Triggers `tbl_call`
@@ -477,13 +542,13 @@ ALTER TABLE `manager`
 -- AUTO_INCREMENT for table `objection`
 --
 ALTER TABLE `objection`
-  MODIFY `objection_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `objection_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `response`
 --
 ALTER TABLE `response`
-  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `reward`
@@ -501,7 +566,7 @@ ALTER TABLE `salary`
 -- AUTO_INCREMENT for table `tbl_call`
 --
 ALTER TABLE `tbl_call`
-  MODIFY `call_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `call_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
 
 --
 -- AUTO_INCREMENT for table `team`
