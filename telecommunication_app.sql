@@ -25,12 +25,12 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddAssistant` (IN `p_team_ID` INT, IN `p_assistant_fullName` VARCHAR(100), IN `p_email` VARCHAR(100), IN `p_password` VARCHAR(70))   BEGIN
+CREATE PROCEDURE `AddAssistant` (IN `p_team_ID` INT, IN `p_assistant_fullName` VARCHAR(100), IN `p_email` VARCHAR(100), IN `p_password` VARCHAR(70))   BEGIN
     INSERT INTO assistant (team_ID, assistant_fullName, email, password)
     VALUES (p_team_ID, p_assistant_fullName, p_email, p_password);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAcceptedObjections` ()   BEGIN
+CREATE PROCEDURE `GetAcceptedObjections` ()   BEGIN
     SELECT 
         a.assistant_fullName,
         o.objection_id,
@@ -49,7 +49,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAcceptedObjections` ()   BEGIN
         o.objection_status = 'accepted';
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetObjectionsByStatus` (IN `p_status` VARCHAR(50))   BEGIN
+CREATE PROCEDURE `GetObjectionsByStatus` (IN `p_status` VARCHAR(50))   BEGIN
     SELECT 
         o.objection_id,
         o.objection_reason,
@@ -65,7 +65,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `GetObjectionsByStatus` (IN `p_statu
         o.objection_status = p_status;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTeamInfo` ()   BEGIN
+CREATE PROCEDURE `GetTeamInfo` ()   BEGIN
     SELECT 
         t.team_ID,
         t.team_name,
